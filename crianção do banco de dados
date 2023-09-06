@@ -1,0 +1,7 @@
+create table colaborador (
+matricula int not null auto_increment
+,nome varchar (40) not null
+,email varchar (100) not null
+,senha  varchar (100) not null
+,primary key(matricula)
+);
