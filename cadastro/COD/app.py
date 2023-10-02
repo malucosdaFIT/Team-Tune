@@ -1,7 +1,8 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, redirect
 import mysql.connector
 import smtplib
 from email.mime.text import MIMEText
+
 
 app = Flask(__name__, static_folder='static')
 
@@ -56,12 +57,13 @@ Em um ambiente saudável, sonhos se tornam realizações, e o progresso é a tri
 Nos ajude a melhorar e criar um ambiente de trabalho mais saudável. 
 Contamos com sua participação!
 """
-        enviar_email(email, assunto, corpo)
 
+        enviar_email(email, assunto, corpo)
         return jsonify({'mensagem': 'E-mail cadastrado com sucesso!'}), 200
+        
     except Exception as e:
         return jsonify({'mensagem': f'Erro ao cadastrar e-mail: {e}'}), 500
-
+    
 
 @app.route('/lista_emails', methods=['GET'])
 def listar_emails():
@@ -83,10 +85,33 @@ def excluir_email(id):
         return jsonify({'mensagem': f'Erro ao excluir e-mail: {e}'}), 500
 
 
+@app.route('/feedback', methods=['GET'])
+def feedback_form():
+    return render_template('feedback_form.html')
+
+
+
+@app.route('/enviar_feedback', methods=['POST'])
+def enviar_feedback():
+    try:
+        data = request.get_json()
+        nome = data['nome']
+        email = data['email']
+        feedback = data['feedback']
+
+        # Enviar e-mail com o feedback
+        assunto = "Novo Feedback Recebido"
+        corpo = f"Nome: {nome}\nE-mail: {email}\nFeedback:\n{feedback}"
+        enviar_email('rpa.bomfim2023@gmail.com', assunto, corpo)
+
+        return jsonify({'mensagem': 'Feedback enviado com sucesso!'}), 200
+    except Exception as e:
+        return jsonify({'mensagem': f'Erro ao enviar feedback: {e}'}), 500
+
+
 @app.route('/')
 def formulario():
     return render_template('formulario.html')
-
 
 if __name__ == "__main__":
     app.run(debug=True, port=5500)
