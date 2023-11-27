@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            text-align: center;
+            margin: 20% 0;
+        }
+        form {
+            display: inline-block;
+            text-align: left;
+        }
+    </style>
+    <title>Alterar Senha</title>
+</head>
+<body>
+
+    <h2>Alterar Senha</h2>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form method="post" action="{{ url_for('alterar_senha', email=email) }}">
+        <label for="nova_senha">Nova Senha:</label>
+        <input type="password" name="nova_senha" required>
+
+        <label for="confirmar_senha">Confirmar Senha:</label>
+        <input type="password" name="confirmar_senha" required>
+
+        <button type="submit">Alterar Senha</button>
+    </form>
+
+</body>
+</html>
