@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excluir Senhas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Excluir Senhas</h1>
+    <button onclick="excluirSenhas()">Excluir Senhas</button>
+    <script>
+        function excluirSenhas() {
+            if (confirm('Tem certeza que deseja excluir todas as senhas?')) {
+                fetch('/excluir_senhas', {
+                    method: 'GET',
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.mensagem);
+                })
+                .catch((error) => {
+                    console.error('Erro:', error);
+                });
+            }
+        }
+    </script>
+</body>
+</html>

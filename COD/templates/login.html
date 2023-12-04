@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="login-box">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="user-box">
+                <input type="email" name="email" id="email" required>
+                <label for="email">E-mail</label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="senha" id="senha" required>
+                <label for="senha">Senha</label>
+            </div>
+            <button type="submit">Entrar</button>
+            <a href="/cadastro">Cadastrar</a>
+            <div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var email = document.getElementById('email').value;
+            var senha = document.getElementById('senha').value;
+            
+            // Enviar o email e senha para o servidor (usando AJAX ou Fetch API)
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: email, senha: senha }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.mensagem);
+                window.location.href = '/feedback';
+            })
+            .catch((error) => {
+                console.error('Erro:', error);
+            });
+        });
+    </script>
+</body>
+</html>

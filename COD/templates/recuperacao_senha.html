@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 50px;
+  background: linear-gradient(#141e30, #243b55);
+  color: #fff;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+input, button {
+  padding: 10px;
+  margin: 15px;
+  width: 300px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+}
+
+button {
+  background-color: #007BFF;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+h2 {
+  margin: 0 0 20px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+
+
+    </style>
+    <title>Esqueceu a Senha</title>
+</head>
+<body>
+    <h2>Esqueceu a Senha</h2>
+    <form method="post">
+        <label for="email">E-mail:</label>
+        <input type="email" name="email" required>
+        <button type="submit">Recuperar Senha</button>
+    </form>
+</body>
+</html>

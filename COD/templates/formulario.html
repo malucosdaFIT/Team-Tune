@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+    <h1>Login</h1>
+    <form id="form-email">
+        <div class="user-box">
+            <input type="email" name="email" id="email" required>
+            <label for="email">E-mail</label>
+        </div>
+        <div class="user-box">
+            <input type="password" name="senha" id="senha" required>
+            <label for="senha">Senha</label>
+        </div>
+        <button type="submit">Cadastrar</button>
+        <a href="/esqueceu_senha">Esqueceu a Senha?</a>
+    </form>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        document.getElementById('form-email').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var email = document.getElementById('email').value;
+            var senha = document.getElementById('senha').value;
+            fetch('/cadastrar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: email, senha: senha }),
+            })
+            .then(function(response) {
+                if (!response.ok) {
+                    throw new Error('Erro ao cadastrar e-mail');
+                }
+                return response.json();
+            })
+            .then(function(data) {
+                alert('E-mail cadastrado com sucesso!');
+            })
+            .catch(function(error) {
+                alert(error.message);
+            });
+        });
+    </script>
+</body>
+</html>
